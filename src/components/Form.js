@@ -14,34 +14,32 @@ function Form() {
     ]
     const vat = 0.08;
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    };
-    // const handleChange = (event) => {
-    //     const price = event.target.name;
-    //     console.log(event.target.value);
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
     // };
+    const handleInputChange = (event) => {
+        setPrice(event.target.value);
+    };
     const handleClick = () => {
         setGrossPrice(price*(1+vat)*(1+tip.value));
-        console.log(grossPrice);
     };
-    const handleSubmitChange = (tip) => {
+    const handleSelectChange = (tip) => {
         setTip(tip);
-        console.log(tip.value);
     };
+
     return(
-        <form onSubmit={handleSubmit}>
+        <form>
             <div>
-                <input type="number" name="price" placeholder="net price" onChange={event => setPrice(event.target.value)} />
+                <input type="number" name="price" placeholder="net price" onChange={handleInputChange} />
             </div>
             <div>
-                <Select value={tip} options={tipOptions} onChange={handleSubmitChange} />
+                <Select value={tip} options={tipOptions} onChange={handleSelectChange} />
             </div>
             <div>
                 <button type="button" onClick={handleClick}>Calculate gross value</button>
             </div>
             <div>
-                <h2>{grossPrice}</h2>
+                <h2>{parseFloat(grossPrice).toFixed(2)}</h2>
             </div>
         </form>
     );
